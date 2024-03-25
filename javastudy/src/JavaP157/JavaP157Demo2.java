@@ -34,7 +34,7 @@ public class JavaP157Demo2 {
         // 子类类型可以赋值给父类类型
         Student s1 = new Student("wx", 12);
         Student s2 = new Student("ww", 22);
-        Student s3 = new Student( "wa", 99);
+        Student s3 = new Student("wa", 99);
 
         Student[] stuArr = { s1, s2, s3 };
         Person[] perArr = new Person[3];
