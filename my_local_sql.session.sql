@@ -1,0 +1,2 @@
+SHOW databases;
+desc user;
