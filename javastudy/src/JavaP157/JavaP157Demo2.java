@@ -35,7 +35,7 @@ public class JavaP157Demo2 {
         Student s1 = new Student("wx", 12);
         Student s2 = new Student("ww", 22);
         Student s3 = new Student("wa", 99);
-
+        // this is a new message
         Student[] stuArr = { s1, s2, s3 };
         Person[] perArr = new Person[3];
         System.arraycopy(stuArr, 0, perArr, 0, 3);
