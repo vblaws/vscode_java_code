@@ -46,7 +46,7 @@ public class JavaP157Demo2 {
         }
     }
 }
-iajopf
+
 class Person {
 
     private String name;
