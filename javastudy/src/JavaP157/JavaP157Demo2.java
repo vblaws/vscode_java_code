@@ -48,7 +48,7 @@ public class JavaP157Demo2 {
 }
 
 class Person {
-
+    // this is a message
     private String name;
     private int age;
 
