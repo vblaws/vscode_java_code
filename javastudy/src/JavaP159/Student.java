@@ -1,5 +1,9 @@
 package JavaP159;
 
+import static org.junit.jupiter.api.DynamicTest.stream;
+
+import java.util.Objects;
+
 public class Student {
     private String name;
     private int age;
@@ -27,6 +31,17 @@ public class Student {
 
     public Student() {
     }
+
+    // @Override
+    // public boolean equals(Object obj) {
+    // if (this == obj)
+    // return true;
+    // if (obj == null || getClass() != obj.getClass())
+    // return false;
+    // Student student = (Student) obj;
+    // return age == student.age && Objects.equals(name, student.name);
+
+    // }
 
     @Override
     public String toString() {
