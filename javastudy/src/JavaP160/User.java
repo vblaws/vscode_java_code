@@ -94,7 +94,14 @@ public class User implements Cloneable {
     protected Object clone() throws CloneNotSupportedException {
         // TODO Auto-generated method stub
         // 让Java帮我们克隆一个对象，并且返回出去
-        return super.clone();
+        int[] data = this.data;
+        int[] newData = new int[data.length];
+        for (int i = 0; i < data.length; i++) {
+            newData[i] = data[i];
+        }
+        User u = (User) super.clone();
+        u.data = newData;
+        return u;
     }
 
 }

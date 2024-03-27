@@ -14,5 +14,9 @@
             "username": "root",
             "askForPassword": true
         }
+    ],
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "javastudy/lib/gson-2.10.1.jar"
     ]
 }
