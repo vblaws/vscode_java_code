@@ -93,7 +93,7 @@ public class User implements Cloneable {
     @Override
     protected Object clone() throws CloneNotSupportedException {
         // TODO Auto-generated method stub
-        // 让Java帮我们克隆一个对象，并且返回出去
+        // 让Java帮我们克隆一个对象，并且返回出去，这里是属于深克隆
         int[] data = this.data;
         int[] newData = new int[data.length];
         for (int i = 0; i < data.length; i++) {
