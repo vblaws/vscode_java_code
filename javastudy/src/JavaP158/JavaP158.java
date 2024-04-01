@@ -9,7 +9,7 @@ public class JavaP158 {
         Runtime runtime = Runtime.getRuntime();
         Runtime runtime2 = Runtime.getRuntime();
         System.out.println(runtime == runtime2);
-        // 停止虚拟机
+        // 停止虚拟机awdawdaw
         // 获取CPU线程数
         System.out.println("CPU线程数为" + runtime.availableProcessors());
         // 获取JVM能从系统中获取总内存大小
