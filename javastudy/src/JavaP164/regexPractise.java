@@ -23,15 +23,19 @@ public class regexPractise {
         String regex2 = "0[0-9]{2,3}-?[1-9]\\d{4,9}";
         boolean flag2 = str2.matches(regex2);
         System.out.println(flag2);
-
+        System.out.println("--------------------------------------------------");
         // 正则表达式匹配邮箱
         // 1:@的左边:\\w+
         // 2:@
         // 3:@
         // 3 .左边,.右边
-        String str3 = "3239498031@qq.com";
-        String regex3 = "\\w{1,16}@[\\w&&[^_]]{2,6}";
+        String str3 = "3239498031@qq.com.cn";
+        String regex3 = "\\w+@[\\w&&[^_]]{2,6}(\\.[a-zA-z]{2,3}){1,2}";
         boolean flag3 = str3.matches(regex3);
         System.out.println(flag3);
+        System.out.println("--------------------------------------------------");
+        String regex4 = "([01]\\d|2[0-3])(:[0-5]\\d){2}";
+        String str4 = "12:12:12";
+        System.out.println(str4.matches(regex4));
     }
 }
