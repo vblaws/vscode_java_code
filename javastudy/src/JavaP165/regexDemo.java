@@ -10,5 +10,11 @@ public class regexDemo {
         String regex2 = "[1-9]\\d{16}(\\d|X|x)";
         System.out.println("320505200701261511".matches(regex2));
 
+        if (regex1.equals(regex2)) {
+            System.out.println("Two same String");
+        } else {
+            System.out.println("They are not");
+        }
+
     }
 }
