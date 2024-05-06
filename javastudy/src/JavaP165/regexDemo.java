@@ -1,5 +1,7 @@
 package JavaP165;
 
+import java.util.Random;
+
 public class regexDemo {
     public static void main(String[] args) {
         // 正则表达式验证用户名
@@ -13,8 +15,16 @@ public class regexDemo {
         if (regex1.equals(regex2)) {
             System.out.println("Two same String");
         } else {
-            System.out.println("They are not");
+            System.out.println("They are");
         }
+
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 10000000; i++) {
+            Random r = new Random();
+            r.nextInt();
+        }
+        long end = System.currentTimeMillis();
+        System.out.println(end - start + "ms");
 
     }
 }
