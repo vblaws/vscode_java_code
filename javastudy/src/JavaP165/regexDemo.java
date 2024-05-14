@@ -25,6 +25,5 @@ public class regexDemo {
         }
         long end = System.currentTimeMillis();
         System.out.println(end - start + "ms");
-
     }
 }
