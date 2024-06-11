@@ -1,7 +1,5 @@
 package Javap163;
 
-import practiceCode.bookP143.bookP143;
-
 public class RegexDemo {
     public static void main(String[] args) {
 
