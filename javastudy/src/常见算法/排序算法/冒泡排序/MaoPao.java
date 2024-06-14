@@ -3,14 +3,19 @@ package 常见算法.排序算法.冒泡排序;
 public class MaoPao {
     public static void main(String[] args) {
         int[] arr = { 3, 4, 1, 1, 3, 32, 32, 11, 22, 33, 10 };
-        System.out.println(arr.length);
-        for (int i : maoPao(arr)) {
-            System.out.print(i + " ");
+
+        long start = System.currentTimeMillis();
+        maoPao(arr);
+        long end = System.currentTimeMillis();
+        System.out.println(end - start + "ms");
+
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println(i);
         }
 
     }
 
-    public static int[] maoPao(int[] arr) {
+    public static void maoPao(int[] arr) {
         // 外循环:如果有n个数据,只要执行n-1次就可以了
         for (int i = 0; i < arr.length - 1; i++) {
             // 内循环:每一轮中我如何比较数据并且找到当前的最大值
@@ -24,6 +29,6 @@ public class MaoPao {
                 }
             }
         }
-        return arr;
+
     }
 }

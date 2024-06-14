@@ -12,12 +12,17 @@ public class XuanZe {
          * 
          */
         int[] arr = { 3, 4, 1, 2, 5 };
-        for (int i : xuanZe(arr)) {
-            System.out.print(i + " ");
+        long start = System.currentTimeMillis();
+        xuanZe(arr);
+        long end = System.currentTimeMillis();
+        System.out.println(end - start + "ms");
+
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println(i);
         }
     }
 
-    public static int[] xuanZe(int[] arr) {
+    public static void xuanZe(int[] arr) {
         // 2.利用选择排序让数组变成 1 2 3 4 5
         /*
          * //第一轮：
@@ -46,8 +51,6 @@ public class XuanZe {
                 }
             }
         }
-
-        return arr;
 
     }
 }
