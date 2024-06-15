@@ -19,6 +19,23 @@ public class LambdaDemo {
         method(() -> {
             System.out.println("我在Lambda里面写");
         });
+        /*
+         * lambda省略规则：参数类型可以省略不写
+         * 如果只有一个参数,参数类型可以省略,同时()也可以省略
+         * 如果lambda方法体只有一行,大括号，分号，return也可以省略不写.需要同时省略
+         */
+        Integer[] arr = { 1, 2, 3, 1, 22, 2, 22, 1, 111, 112 };
+        // 省略前
+        Arrays.sort(arr, (Integer o1, Integer o2) -> {
+            return o2 - o1;
+        });
+        // 省略后
+        Arrays.sort(arr, (o1, o2) -> o1 - o2);
+
+        System.out.println(Arrays.toString(arr));
+        // 上面一段的简单理解:
+        // o1-o2升序 // o2-o1降序
+
     }
 
     public static void method(Swim s) {
