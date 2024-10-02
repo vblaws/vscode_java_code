@@ -3,6 +3,7 @@ package Iterator;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class IteratorDemo {
     public static void main(String[] args) {
@@ -13,6 +14,7 @@ public class IteratorDemo {
          * | boolean hasNext() | 判断当前位置是否有元素,有元素返回true,没有元素返回false |
          * | E next() | 获取当前位置的元素,并将迭代器对象移动到下一个位置 |
          */
+        ArrayList
         String str = "Hello,world";
         Collection<String> list = new ArrayList<>();
         for (int i = 0; i < str.length(); i++) {
@@ -31,7 +33,5 @@ public class IteratorDemo {
         // 3.循环中只能使用一次next方法
         // 4.迭代器遍历时,不能使用集合的方法进行增加或删除
         // 如果要进行第二次遍历集合,就需要重新获取迭代器对象
-
     }
-
 }

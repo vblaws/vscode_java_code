@@ -4,7 +4,7 @@ public class BinarySearch {
     public static void main(String[] args) {
         // 需求:定义一个方法利用二分查找，获取某个元素在数组中的索引
         int[] arr = { 7, 23, 79, 81, 103, 127, 131, 147 };
-        System.out.println(binarySearch(arr, 131));
+        System.out.println(binarySearch(arr, 7));
     }
 
     public static int binarySearch(int[] arr, int num) {
