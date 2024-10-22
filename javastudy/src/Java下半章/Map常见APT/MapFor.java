@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
+import java.util.function.*;
 
 public class MapFor {
     public static void main(String[] args) {
@@ -38,5 +39,12 @@ public class MapFor {
         };
         System.out.println(random.get());
         System.out.println(random2.get());
+        Function<Integer, Integer> square = x -> x * x;
+        int result1 = square.apply(5);
+        System.out.println(result1);
+        BiFunction<Integer, Integer, String> compartTo = (x, y) -> {
+            return x > y ? "大于" : "小于";
+        };
+        System.out.println(compartTo.apply(12, 22));
     }
 }

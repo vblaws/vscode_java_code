@@ -14,7 +14,6 @@ public class IteratorDemo {
          * | boolean hasNext() | 判断当前位置是否有元素,有元素返回true,没有元素返回false |
          * | E next() | 获取当前位置的元素,并将迭代器对象移动到下一个位置 |
          */
-        ArrayList
         String str = "Hello,world";
         Collection<String> list = new ArrayList<>();
         for (int i = 0; i < str.length(); i++) {
