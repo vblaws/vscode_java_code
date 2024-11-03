@@ -2,7 +2,7 @@
 
 
 
-# Java学习
+# Java上半
 
 ## P157-常用API学习-System
 
@@ -13,7 +13,7 @@ System是一个工具类，提供一些与系统相关的方法
 |public static long currentTimeMills()|返回当前系统的毫秒值形式|
 |public static void arraycopy(数据源数组,起始索引,目的地数组,起始索引,拷贝个数)|数组拷贝|
 
-计算机时间原点:**1970年1月1日00:00:00**,我国在东八区,有八个小时时差,所以应该是**1970年1月1日00:08:00**
+计算机时间原点:**1970年1月1日00：00：00**,我国在东八区,有八个小时时差,所以应该是**1970年1月1日00：08：00**
 
 > public static void exit(int status),参数status，0为正常退出,非0是不正常推出
 
@@ -578,7 +578,7 @@ System.out.println(flag3);
 
 ```java
 String regex4 = "([01]\\d|2[0-3])(:[0-5]\\d){2}";
-String str4 = "12:12:12";
+String str4 = "12：12：12";
 System.out.println(str4.matches(regex4));
 ```
 
@@ -705,12 +705,12 @@ public class SimDaFor {
         // test1();
         // 定义字符串表示三个时间
 
-        String startTime = "2023年11月11日 0:0:0";
-        String endTime = "2023年11月11日 0:10:0";
-        String JiaTime = "2023年11月11日 0:01:00";
-        String PiTime = "2023年11月11日 0:11:0";
+        String startTime = "2023年11月11日 0：0：0";
+        String endTime = "2023年11月11日 0：10：0";
+        String JiaTime = "2023年11月11日 0：01：00";
+        String PiTime = "2023年11月11日 0：11：0";
         // 解析三个时间获得Date对象
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy年MM月dd日 HH：mm：ss");
         Date d1 = sdf1.parse(startTime);
         Date d2 = sdf1.parse(endTime);
         Date d3 = sdf1.parse(JiaTime);
@@ -745,8 +745,8 @@ public class SimDaFor {
     }
 
     private static void getD1() throws ParseException {
-        String str1 = "2023-11-11 22:22:22";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String str1 = "2023-11-11 22：22：22";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH：mm：ss");
         // 细节:创建对象的格式要和字符串格式完全一致
         Date d1 = sdf.parse(str1);
         // 打印结果
@@ -767,7 +767,7 @@ public class SimDaFor {
         System.out.println(str2);
 
         // test
-        SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy年MM月dd日 a HH:mm:ss E");
+        SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy年MM月dd日 a HH：mm：ss E");
         Date d3 = new Date();
         String str3 = sdf3.format(d3);
         System.out.println(str3);
@@ -1426,7 +1426,7 @@ public class getRunYear {
         } else {
             System.out.println("闰年");
         }
-        // 方法3:LocalDate有一个方法可以直接判断是否是闰年
+        // 方法3：LocalDate有一个方法可以直接判断是否是闰年
         LocalDate ld = LocalDate.of(2000, 3, 1);
         if (ld.isLeapYear()) {
             System.out.println("是闰年");
@@ -1931,7 +1931,7 @@ public class BlockTest {
 
 ```
 
-# P-179-03-冒泡排序和选择排序
+## P-179-03-冒泡排序和选择排序
 
 - 冒泡排序
 
@@ -2677,7 +2677,7 @@ public class Test2 {
 >
 > ​    *// 发现只剩一个桃子了,请问总控有多少桃子*
 >
-> ​    *// day10:1*
+> ​    *// day10：1*
 >
 > ​    *// day9:(day10+1)\*2*
 >
@@ -2696,7 +2696,7 @@ public class Test3 {
     public static void main(String[] args) {
         // 有一堆桃子,猴子每天吃掉一半,在多吃一个,以后每天都吃一半,再多吃一个,第十天(还没吃)
         // 发现只剩一个桃子了,请问总控有多少桃子
-        // day10:1
+        // day10：1
         // day9:(day10+1)*2
         // day8:(day9+1)*2
         // ...
@@ -3363,4 +3363,601 @@ public interface List<E>{
 ![QQ_1721787830167](Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/QQ_1721787830167.png)
 
 ## P193 集合进阶-09-泛型的通配符和综合练习
+
+![image-20241015181854144](Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241015181854144.png)
+
+![image-20241015181923483](Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241015181923483.png)
+
+
+
+代码参考vscode
+
+## 集合进阶-10数据结构-（二叉树，二叉查找树）
+
+- ArrayList ---> Array:数组,List属于List系列的一员
+
+- LinkedList --->Linked:链表,List属于List系列的一员
+
+- HashSet--->  Hash:哈希表,Set:属于Set系列的一员
+
+- TreeSet---> Tree:树,Set:属于Set系列一员
+
+- LinkedHashSet--->Linked:链表,HashSet:父类
+
+  
+
+  **数据结构(树)**
+
+  > ![image-20241022192514348](Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241022192514348.png)
+
+![image-20241022192539382](Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241022192539382.png)
+
+数据结构术语:
+
+- 度:每一个节点的子节点数量
+
+> 二叉树中,任意节点度<=2
+
+- 树高:树的总层数
+- 根节点:最顶层的节点
+- 左子节点:左下方的节点
+- 右子节点:右下方的节点
+- 根节点的左子树和右子树
+
+> 如图左子树:蓝虚线,右子树:绿虚线
+>
+> ![image-20241022193016650](Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241022193016650.png)
+
+
+
+数据结构(二叉查找树)
+
+> 又称为二叉排序树或者二叉搜索树
+
+特点：
+
+- 每一个节点最多有两个子节点
+- 任意节点的左子树上的值小于当前节点
+- 任意节点的右子树上的值大于当前节点 
+
+<img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241022193436875.png" alt="image-20241022193436875" style="zoom: 50%;" />
+
+添加节点:
+
+规则:小的存左边，大的存右边，一样就不存
+
+**数据结构(二叉树)遍历方式**:4种
+
+前序遍历
+
+> 从根节点开始，然后按照==当前==节点，==左==子节点,==右==子节点的顺序遍历
+
+<img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241022214905283.png" alt="image-20241022214905283" style="zoom: 33%;" />
+
+中序遍历
+
+> 从根节点开始，然后按照==左==节点，==中间==子节点,==左==子节点的顺序遍历
+
+<img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241022215819222.png" alt="image-20241022215819222" style="zoom：33%;" />
+
+后序遍历
+
+> 从根节点开始，然后按照==左==节点，==右==子节点,==当前==子节点的顺序遍历
+
+<img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241022215951375.png" alt="image-20241022215951375" style="zoom：33%;" />
+
+层序遍历
+
+> 从根节点一层一层开始遍历
+
+<img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241022220023693.png" alt="image-20241022220023693" style="zoom：33%;" />
+
+全部总结
+
+![image-20241022220059184](Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241022220059184.png)
+
+数据结构(二叉树)弊端:
+
+>  容易变成 下图情况:
+
+
+
+<img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241022222742746.png" alt="image-20241022222742746" style="zoom：33%;" />
+
+所以现在有一个解决方式 使用==平衡二叉树==
+
+在二叉查找树上又提出一个规则:
+
+> 任意节点的左右子树高度不超过1
+
+
+
+## 集合进阶-11-数据结构(平衡二叉树旋转机制)
+
+旋转机制:
+
+1. 规则一：左旋
+
+> 确定支点:从添加的节点开始，不断的往父节点找不平衡的点
+>
+> 
+>
+> 1. > 简单情况
+>    >
+>    > 步骤:
+>    >
+>    > - 以不平衡的点做支点（左右子树高度差超过1的节点就是不平衡的节点）
+>    > - 把支点左旋降级，变成做左子节点
+>    > - 晋升为原来的右子节点
+>    >
+>    > 原来:
+>    >
+>    > <img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241023192536132.png" alt="image-20241023192536132" style="zoom:100;" />
+>    >
+>    > 旋转后:
+>    >
+>    > <img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241023192622242.png" alt="image-20241023192622242" style="zoom:100;" />
+>    >
+>    > 
+>    >
+>    > 
+>
+> 2. > 复杂情况:
+>    >
+>    > 步骤:
+>    >
+>    > - 以不平衡的点做支点（左右子树高度差超过1的节点就是不平衡的节点）
+>    > - 将根节点的右侧向左拉
+>    > - 原先的右节点变成新的父节点，并把多余的左节点出让，给已经降级的根节点当右节点
+>    >
+>    > 原来:
+>    >
+>    > <img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241023193637514.png" alt="image-20241023193637514"  style="zoom:100;"/>
+>    >
+>    > 旋转后:
+>    >
+>    > <img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241023194200122.png" alt="image-20241023194200122" style="zoom:100"/>
+>
+> 规则二：右旋
+>
+> 跟左旋正好相反
+
+平衡二叉树需要旋转的情况
+
+1. 左左
+
+   - 当根节点左子树的左子树有节点插入，导致二叉树不平衡
+   -  需要一次右旋可以搞定
+   - 之前:
+   - <img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241024183133257.png" alt="image-20241024183133257" style="zoom:50%;" />
+
+   - 之后
+   - <img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241024183328924.png" alt="image-20241024183328924" style="zoom:50%;" />
+
+1. 左右:当根节点的左子树的右子树有数据插入，导致二叉树不平衡
+   - 一次局部左旋和一次整体右旋
+   - 之前:
+   - <img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241024184227409.png" alt="image-20241024184227409" style="zoom:50%;" />
+   - 中间:先局部左旋
+   - <img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241024184424079.png" alt="image-20241024184424079" style="zoom:50%;" />
+   - 之后:再右旋
+   - <img src="Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241024184532174.png" alt="image-20241024184532174" style="zoom:50%;" />
+
+1. 右右
+   - 与上图左左相反
+
+1. 右左
+   - 与上图左右相反
+
+触发时机：当添加一个节点时，该树不再是一个平衡二叉树
+
+## 集合进阶-12-数据结构(红黑树，红黑规则，添加节点处理方案)
+
+数据结构（红黑树）
+
+- 红黑树是一种自平衡的二叉查找树，是计算机科学中的一种数据结构
+- 1972年出现，当时被称为平衡二叉B树，后来，1978年被修改为如今的“==红黑树==”
+- 它是一种特殊的二叉查找树，红黑树的每一个节点都有存储位表示节点的颜色
+- ==每一个节点可以是红或者黑==，红黑树==不是高度平衡的==，他的平衡是通过==红黑规则==实现的
+
+红黑规则
+
+1. 每一个节点或是红色的，或是黑色的
+2. 根节点必须是黑色
+3. 如果一个节点没有子节点或者父节点，则该节点相应的指针属性值为==Nil==,这些==Nil==被视为叶节点，每个叶节点（==Nil==）都是==黑色==的
+4. 如果某一个节点是红色，那么他的子节点必须是黑色（不能出现两个红色节点相连的情况）
+5. 对每一个节点，从该节点到其所有后代叶节点的简单路径上，均包含相同数目的黑色节点；
+
+
+
+
+
+
+
+# Java下半
+
+## P1 双列集合的特点
+
+
+
+1. 双列集合一次需要存一对数据，分别为键和值
+2. 键不可以重复，值可以重复
+3. 键和值一一对应,每个键只能找到自己的值
+4. 健＋值这个整体称为键值对或者键值对对象,Java中叫做"Entry对象"
+
+## P2 Map集合常用API
+
+![image-20241015184540162](Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241015184540162.png)
+
+Map是双列集合的顶层接口,他的功能是全部双列集合可以继承使用的
+
+| 方法名称                            | 说明                                 |
+| ----------------------------------- | ------------------------------------ |
+| V put(K key, V value)               | 添加元素                             |
+| V remove(Object key)                | 根据键删除键值对元素                 |
+| void clear()                        | 移除所有的键值对元素                 |
+| boolean containsKey(Object key)     | 判断集合是否包含指定的键             |
+| boolean containsValue(Object value) | 判断集合是否包含指定的值             |
+| boolean isEmpty()                   | 判断集合是否为空                     |
+| int size()                          | 集合的长度，也就是集合中键值对的个数 |
+
+代码
+
+```java
+package Java下半章.Map常见API;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/*
+ * 方法名称	说明
+V put(K key, V value)	添加元素
+V remove(Object key)	根据键删除键值对元素
+void clear()	移除所有的键值对元素
+boolean containsKey(Object key)	判断集合是否包含指定的键
+boolean containsValue(Object value)	判断集合是否包含指定的值
+boolean isEmpty()	判断集合是否为空
+int size()	集合的长度，也就是集合中键值对的个数
+ */
+public class MapJH {
+    public static void main(String[] args) {
+        // 创建Map集合的对象
+        Map<String, String> list = new HashMap<>();
+        // 添加元素
+        // put方法细节
+        // 添加/覆盖
+        // 在添加数据时，如果键不存在，则直接把键值对添加到map集合中,并且方法返回null
+        // 在添加数据时，若键已存在，会把原有的键值对对象覆盖，会把被覆盖的值返回
+
+        list.put("1", "a");
+        // System.out.println(value1);
+        list.put("2", "b");
+        list.put("3", "c");
+
+        // String value = list.put("1", "d");
+        // System.out.println(value);
+        // 会返回删除key的value
+        String result = list.remove("1");
+        System.out.println(result);
+        // 清空map无返回值
+        // list.clear();
+        // 查看是否包含
+        boolean re = list.containsKey("2");
+        System.out.println(re);
+        boolean re1 = list.containsValue("b");
+        System.out.println(re1);
+        // 打印出来
+        System.out.println(list);
+
+    }
+}
+```
+
+
+
+## P3 Map集合的第一种遍历方式(键找值)
+
+ 
+
+Map遍历方式
+
+- 键找值
+
+- 键值对
+- Lambda表达式
+
+代码:
+
+```java
+package Java下半章.Map常见APT;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Supplier;
+import java.util.function.*;
+
+public class MapFor {
+    public static void main(String[] args) {
+        // 第一种遍历方式键找值
+        Map<String, String> map = new HashMap<>();
+        map.put("a", "1");
+        map.put("b", "2");
+        map.put("c", "3");
+        // keyset方法可以把一个map集合的键变成一个单列集合
+        Set<String> keys = map.keySet();
+        // 遍历单列集合
+        for (String key : keys) {
+            String value = map.get(key);
+            System.out.println(key + "+" + value);
+        }
+        // 键找值练习2
+        Iterator<String> iter = keys.iterator();
+        while (iter.hasNext()) {
+            System.out.println(map.get(iter.next()));
+        }
+        // 键找值3
+        keys.forEach(key -> System.out.println(key + "" + map.get(key)));
+        Supplier<Integer> random = () -> (int) (Math.random() * 100);
+        Supplier<Integer> random2 = new Supplier<Integer>() {
+            @Override
+            public Integer get() {
+                return (int) (Math.random() * 100);
+
+            }
+
+        };
+        System.out.println(random.get());
+        System.out.println(random2.get());
+        Function<Integer, Integer> square = x -> x * x;
+        int result1 = square.apply(5);
+        System.out.println(result1);
+        BiFunction<Integer, Integer, String> compartTo = (x, y) -> {
+            return x > y ? "大于" : "小于";
+        };
+        System.out.println(compartTo.apply(12, 22));
+    }
+}
+
+```
+
+
+
+## P4Map集合的第二种遍历方式(键值对)
+
+
+
+代码:
+
+```java
+package Java下半章.Map常见APT;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+import java.util.Iterator;
+
+public class MapFor1 {
+    public static void main(String[] args) {
+        // Map集合第二种遍历方式
+
+        // 1.创建map集合的对象
+        Map<String, String> map = new HashMap<>();
+        // 2.添加元素
+        map.put("猴头", "孙悟空");
+        map.put("老猪", "猪八戒");
+        map.put("沙师弟", "沙悟净");
+        // 3。遍历（通过键值对对象遍历）
+        // 3.1通过一个方法获取所有的键值对对象
+        Set<Entry<String, String>> result = map.entrySet();
+        // 遍历Entry集合,增强for方法
+        for (Entry<String, String> entry : result) {// entry --> "猴头","孙悟空"
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+        System.out.println();
+        // 遍历Entry集合，迭代器方式
+        Set<Entry<String, String>> result1 = map.entrySet();
+        Iterator<Entry<String, String>> iterator = result1.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+        System.out.println(" ");
+        // 遍历Entry方式,Lambda表达式
+        Set<Entry<String, String>> result2 = map.entrySet();
+        result2.forEach(x -> System.out.println(x.getKey() + "=" + x.getValue()));
+    }
+}
+
+```
+
+## P5Map集合的第三种遍历方式(Lambda表达式)
+
+| 方法                                                         | 说明                        |
+| ------------------------------------------------------------ | --------------------------- |
+| default void foreach(BiConsumer<? super K, ? super V> action) | 结合lambda表达式遍历map集合 |
+|                                                              |                             |
+
+代码:
+
+```java
+package Java下半章.Map常见APT;
+
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.function.BiConsumer;
+
+public class MapFor2 {
+    public static <T> void main(String[] args) {
+        // 第三种遍历方式,Lambda方式
+
+        // 1.创建map集合的对象
+        Map<String, String> map = new HashMap<>();
+        // 2.添加元素
+        map.put("猴头", "孙悟空");
+        map.put("老猪", "猪八戒");
+        map.put("沙师弟", "沙悟净");
+        // Set<Entry<String, String>> result = map.entrySet();
+        // 底层：使用了第二种遍历方式，遍历一次获得每一个键和值
+        map.forEach(new BiConsumer<String, String>() {
+            @Override
+            public void accept(String k, String v) {
+                System.out.println(k + "=" + v);
+            }
+
+        });
+        map.forEach((k, y) -> System.out.println(k + "=" + y));
+    }
+}
+```
+
+## P6-HashMap基本的使用
+
+> HashMap的特点
+>
+> 1. HashMap是Map里面的一个实现类s
+> 2. 没有额外学习的特有方法,直接使用map里面的方法就可以了
+> 3. 特点都是由键决定的:无序，不重复，无索引
+> 4. HashMap和HashSet的底层结构一样，都是哈希表结构
+
+HashMap底层原理
+
+1. HashMap底层是哈希表结构
+2. 以来hashCode方法和equals方法保证键的唯一性
+3. 如果键存储的是自定义对象，需要重写hashCode和equals方法
+4. 如果值存储自定义对象，不需要重写hashCode和equals方法
+
+
+
+## P7 HashMap练习题
+
+![image-20241017201433018](Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.assets/image-20241017201433018.png)
+
+代码:
+
+```java
+package Java下半章.HashMapTest.Test1;
+
+import java.util.HashMap;
+
+public class Test1 {
+    public static void main(String[] args) {
+
+        HashMap<Student, String> map = new HashMap<>();
+        map.put(new Student("wangsan", 12), "jiangsu");
+        map.put(new Student("wangsi", 11), "beijing");
+        map.put(new Student("wangsan", 12), "nanjing");
+        map.forEach((x, y) -> System.out.println(x + "=" + y));
+    }
+}
+Student类:
+
+package Java下半章.HashMapTest.Test1;
+
+public class Student {
+    private String name;
+
+    private int age;
+
+    public int getAge() {
+        return age;
+    }
+
+    public Student() {
+
+    }
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Student [name=" + name + ", age=" + age + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + age;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Student other = (Student) obj;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (age != other.age)
+            return false;
+        return true;
+    }
+
+}
+
+
+
+```
+
+需要重写equals和
+
+## P7 LinkedHashMap
+
+- 由键决定:**有序**,不重复,无索引
+- 这里的有序代表存储和取出的顺序相同
+- 原理:底层依旧是哈希表，只是每个键值对元素又额外多了一个双链表的机制记录存储的顺序
+
+代码:
+
+```java
+package Java下半章.LinkedHashMap;
+
+import java.util.LinkedHashMap;
+
+public class LinkedHashMapT {
+    public static void main(String[] args) {
+        // LinkedHashMap测试
+        LinkedHashMap<String, Integer> linkedHashMap = new LinkedHashMap<>();
+        linkedHashMap.put("a", 1);
+        linkedHashMap.put("b", 2);
+        linkedHashMap.put("c", 3);
+        linkedHashMap.forEach((x, y) -> System.out.println(x + "=" + y));
+    }
+}
+```
+
+结果:
+
+```java
+a=1
+b=2
+c=3
+```
+
+## P10 集合进阶-TreeMap的基本使用和基础练习
 
