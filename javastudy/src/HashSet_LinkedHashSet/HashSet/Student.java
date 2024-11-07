@@ -1,4 +1,4 @@
-package HashSet_LinkedHashSet;
+package HashSet_LinkedHashSet.HashSet;
 
 public class Student {
     private String name;
@@ -43,5 +43,13 @@ public class Student {
         int result = getName().hashCode();
         result = 31 * result + getAge();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "学生{" +
+                "姓名='" + name + '\'' +
+                ", 年龄=" + age +
+                '}';
     }
 }

@@ -1,4 +1,4 @@
-package HashSet_LinkedHashSet;
+package HashSet_LinkedHashSet.HashSet;
 
 import java.util.HashSet;
 import java.util.Iterator;
