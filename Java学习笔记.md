@@ -2041,7 +2041,7 @@ package 常见算法.排序算法.选择排序;
 
 public class XuanZe {
     public static void main(String[] args) {
-        int[] arr = { 3, 4, 1, 2, 5 };
+        int[] arr = {3, 4, 1, 2, 5};
         for (int i : xuanZe(arr)) {
             System.out.print(i + " ");
         }
@@ -2082,12 +2082,12 @@ public class ChaRu {
     public static void main(String[] args) {
         /*
          * 将0索引的元素到N索引的元素看做是有序的，把N+1索引的元素到最后一个当成是无序的。
-         * 
+         *
          * 遍历无序的数据，将遍历到的元素插入有序序列中适当的位置，如遇到相同数据，插在后面。
-         * 
+         *
          * N的范围：0~最大索引
          */
-        int[] arr = { 3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50, 50 };
+        int[] arr = {3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50, 50};
         for (int i : chaRu(arr)) {
             System.out.print(i + " ");
         }
@@ -3661,9 +3661,241 @@ Set集合实现类:
 > 8. JDK8以后:链表长度大于8且数组长度大于64时，自动转化为红黑树
 > 9. 如果集合中添加的是自定义元素，需要重写equals和hashcode方法
 
-HashSet的三个问题:
+## 集合进阶-14-TreeSet第一种排列方式超详细
 
-1.
+Tree特点:
+
+- 不重复,无索引,**可排序**
+- 可排序:默认按照元素的默认规则排序(从小到大)
+- TreeSet底层依赖**红黑树的数据结构**实现排序的,增删查改效率高
+
+题目1:用TreeSet排列整数
+
+```java
+        TreeSet<Integer> ts = new TreeSet<Integer>();
+        ts.
+
+add(2);
+        ts.
+
+add(1);
+        ts.
+
+add(4);
+        ts.
+
+add(1);
+        ts.
+
+add(2);
+        System.out.
+
+println(ts);
+
+
+        System.out.
+
+println("----------");
+```
+
+TreeSet集合默认规则:
+
+- 对于数值类型来说:Integer,Double,默认按照从小到大排序
+- 对于字符或者字符串类型，按照ascll码表中数字升序进行排列
+
+对于自定义的类排序规则:
+如果不写排序规则,就会报错
+例:
+![img_4.png](img_4.png)
+
+- 方式1:默认排序/自然排序:JavaBean实现Comparable接口指定比较规则
+    - 要让自定义类实现comparable接口，并且重写里面的抽象方法
+        - @Override
+          public int compareTo(Student o) {
+          // 指定排序排序规则
+          return o.getAge() - this.getAge();
+          }
+        - this表示当前要添加的元素,o代表已经在红黑树的元素
+        - 返回值:
+            - 负数:认为当前要添加的元素是小的,存左边
+            - 正数:认为当前要添加的元素是大的,存右边
+            - 0:认为当前要添加元素已存在,丢弃
+
+## 集合进阶-15-TreeSet第二种排列方式超详细
+
+排序方式2:比较器排序:创建Treeset对象时,传递比较器Comparator指定规则
+> 使用方法2的时机:
+> 例如:你要先比较字符串长度,然后比较首字母排序,不过由于String类已经写好了排序规则
+> 所以只能使用第二种方法来自定义规则
+> 使用原则:默认第一种,有其他需求的话,使用第二种
+> 如果方法一方法二同时存在,先使用方法二的,参考String类
+> 练习题目1:
+
+要求:使用自然排序或者比较器排序
+存入四个字符串:c,ab,df,qwer
+按长度排序，如果长度相等，则比较首字母
+
+代码:
+
+```java
+package TreeSet.Test2;
+
+import java.util.Comparator;
+import java.util.TreeSet;
+
+public class TreeSetT2 {
+    public static void main(String[] args) {
+/*
+  要求:使用自然排序或者比较器排序
+  存入四个字符串:c,ab,df,qwer
+  按长度排序，如果长度相等，则比较首首字母
+ */
+
+        TreeSet<String> ts = new TreeSet<>(new Comparator<String>() {
+            @Override
+            //o1:当前要添加的元素,o2:已存在的元素
+            //返回值规则与之前相同
+            //匿名内部类形式
+            public int compare(String o1, String o2) {
+                //自己写的
+//                if (o1.length() - o2.length() > 0) {
+//                    return 1;
+//                }
+//                return o1.compareTo(o2);
+                //黑马程序员的
+
+                int i = o1.length() - o2.length();
+                //长度相等,比较首字母,长度不相等,按长短排序
+                return i == 0 ? o1.compareTo(o2) : i;
+
+            }
+        });
+        //Lambda方式
+        TreeSet<String> ts1 = new TreeSet<>(((o1, o2) -> o1.length() - o2.length() == 0 ? o1.compareTo(o2) : o1.length() - o2.length()));
+        //添加元素
+        ts.add("c");
+        ts.add("ab");
+        ts.add("df");
+        ts.add("qwer");
+        ts1.add("c");
+        ts1.add("ab");
+        ts1.add("df");
+        ts1.add("qwer");
+
+        System.out.println(ts);
+        System.out.println(ts1);
+    }
+}
+```
+
+练习题目2:
+![img_5.png](img_5.png)
+主类:TreeSetTest1
+
+```java
+
+```
+
+学生类:Student
+
+```java
+package TreeSet.Test2;
+
+
+public class Student implements Comparable<Student> {
+    private String name;
+    private int age;
+    private double englishScore;
+    private double mathScore;
+    private double chineseScore;
+
+    public Student(String name, int age, double englishScore, double mathScore, double chineseScore) {
+        this.name = name;
+        this.age = age;
+        this.englishScore = englishScore;
+        this.mathScore = mathScore;
+        this.chineseScore = chineseScore;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", englishScore=" + englishScore +
+                ", mathScore=" + mathScore +
+                ", chineseScore=" + chineseScore +
+                '}' + "总分=" + (englishScore + mathScore + chineseScore);
+
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public double getEnglishScore() {
+        return englishScore;
+    }
+
+    public void setEnglishScore(double englishScore) {
+        this.englishScore = englishScore;
+    }
+
+    public double getMathScore() {
+        return mathScore;
+    }
+
+    public void setMathScore(double mathScore) {
+        this.mathScore = mathScore;
+    }
+
+    public double getChineseScore() {
+        return chineseScore;
+    }
+
+    public void setChineseScore(double chineseScore) {
+        this.chineseScore = chineseScore;
+    }
+
+
+    @Override
+    public int compareTo(Student o) {
+        double i = (o.chineseScore + o.mathScore + o.englishScore) - (this.englishScore + this.mathScore + this.chineseScore);
+        //如果总分一样,按照语文成绩排序
+        i = i == 0 ? o.getChineseScore() - this.getChineseScore() : i;
+        //如果语文成绩一样,按照数学成绩排序
+        i = i == 0 ? o.getMathScore() - this.getMathScore() : i;
+        //如果数学成绩一样,按照英语成绩排序
+        i = i == 0 ? o.getEnglishScore() - this.getEnglishScore() : i;
+        //如果英语成绩一样,按照年龄排序
+        i = i == 0 ? o.getAge() - this.getAge() : i;
+        //如果年龄一样,按照名字字幕顺序排序
+        i = i == 0 ? o.getName().compareTo(this.getName()) : i;
+
+        return (int) i;
+
+    }
+}
+
+```
+
+总结:
+![img_6.png](img_6.png)
+![img_7.png](img_7.png)
+从小到大:o1-o2
+从大到小:o2-o1
 
 # Java下半
 
@@ -4039,4 +4271,3 @@ c=3
 ```
 
 ## P10 集合进阶-TreeMap的基本使用和基础练习
-
