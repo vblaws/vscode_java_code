@@ -74,7 +74,6 @@ public class Student implements Comparable<Student> {
         double i = (o.chineseScore + o.mathScore + o.englishScore) - (this.englishScore + this.mathScore + this.chineseScore);
         //如果总分一样,按照语文成绩排序
         i = i == 0 ? o.getChineseScore() - this.getChineseScore() : i;
-
         //如果语文成绩一样,按照数学成绩排序
         i = i == 0 ? o.getMathScore() - this.getMathScore() : i;
         //如果数学成绩一样,按照英语成绩排序
