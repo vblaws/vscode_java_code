@@ -35,3 +35,4 @@
 
 平时看:[蔷薇少女](https://www.bilibili.com/bangumi/play/ep9702?spm_id_from=333.337.0.0&from_spmid=666.25.episode.0),[美少女战士](https://www.nyadm.net/play/6124-1-19.html)
 。真的很好看(推荐😊)
+闲的时候会下国际象棋
