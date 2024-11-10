@@ -71,6 +71,7 @@ public class Student implements Comparable<Student> {
 
     @Override
     public int compareTo(Student o) {
+        //从高到低排序o-this,this表示要添加的，o表示已经存在红黑树的元素
         double i = (o.chineseScore + o.mathScore + o.englishScore) - (this.englishScore + this.mathScore + this.chineseScore);
         //如果总分一样,按照语文成绩排序
         i = i == 0 ? o.getChineseScore() - this.getChineseScore() : i;
