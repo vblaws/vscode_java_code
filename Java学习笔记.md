@@ -4271,3 +4271,51 @@ c=3
 ```
 
 ## P10 集合进阶-TreeMap的基本使用和基础练习
+
+TreeMap
+
+- TreeMap底层和TreeSet一样,都是红黑树结构
+- 由键决定特性:不重复,无索引,可排序
+- 可排序:指对键排序
+
+> !!!注意:默认按照键的从小到大排序,也可以自己定义规则
+
+自定义规则书写方式
+
+1. 实现comparable接口，重写compartTo方法
+2. 在创建TreeSet或者TreeMap集合时,传递Comparator比较器对象
+
+练习1:键是整数,值是字符串,分别以键进行升序和降序排列
+
+```java
+package Java下半章.TreeMap;
+
+import java.util.TreeMap;
+
+public class TreeMapT1 {
+    public static void main(String[] args) {
+        //Integer,Double类型默认按升序排列
+        //String类时按照ASCII码表对应数字排序
+        //升序
+        TreeMap<Integer, String> treeMap = new TreeMap<>();
+        treeMap.put(1, "矿泉水");
+        treeMap.put(4, "手机");
+        treeMap.put(2, "鼠标");
+        treeMap.put(3, "显示器");
+        treeMap.forEach((x, y) -> System.out.println(x + " " + y));
+        System.out.println("------------------");
+        //降序
+        //o1:要存储的元素
+        //o2:已经存在的元素
+        TreeMap<Integer, String> treeMap1 = new TreeMap<>((o1, o2) -> o2 - o1);
+        treeMap1.put(1, "矿泉水");
+        treeMap1.put(4, "手机");
+        treeMap1.put(2, "鼠标");
+        treeMap1.put(3, "显示器");
+        treeMap1.forEach((x, y) -> System.out.println(x + " " + y));
+
+    }
+}
+```
+
+## P11 集合进阶-TreeMap的基础练习2-键位置添加自定义类
