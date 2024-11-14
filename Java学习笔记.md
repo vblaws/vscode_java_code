@@ -4319,4 +4319,176 @@ public class TreeMapT1 {
 ```
 
 ## P11 集合进阶-TreeMap的基础练习2-键位置添加自定义类
-this is a test
+
+代码:
+Student类
+```java
+package TreeSet.Test2;
+
+
+public class Student implements Comparable<Student> {
+    private String name;
+    private int age;
+    private double englishScore;
+    private double mathScore;
+    private double chineseScore;
+
+    public Student(String name, int age, double englishScore, double mathScore, double chineseScore) {
+        this.name = name;
+        this.age = age;
+        this.englishScore = englishScore;
+        this.mathScore = mathScore;
+        this.chineseScore = chineseScore;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", englishScore=" + englishScore +
+                ", mathScore=" + mathScore +
+                ", chineseScore=" + chineseScore +
+                '}' + "总分=" + (englishScore + mathScore + chineseScore);
+
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public double getEnglishScore() {
+        return englishScore;
+    }
+
+    public void setEnglishScore(double englishScore) {
+        this.englishScore = englishScore;
+    }
+
+    public double getMathScore() {
+        return mathScore;
+    }
+
+    public void setMathScore(double mathScore) {
+        this.mathScore = mathScore;
+    }
+
+    public double getChineseScore() {
+        return chineseScore;
+    }
+
+    public void setChineseScore(double chineseScore) {
+        this.chineseScore = chineseScore;
+    }
+
+
+    @Override
+    public int compareTo(Student o) {
+        //从高到低排序o-this,this表示要添加的，o表示已经存在红黑树的元素
+        double i = (o.chineseScore + o.mathScore + o.englishScore) - (this.englishScore + this.mathScore + this.chineseScore);
+        //如果总分一样,按照语文成绩排序
+        i = i == 0 ? o.getChineseScore() - this.getChineseScore() : i;
+        //如果语文成绩一样,按照数学成绩排序
+        i = i == 0 ? o.getMathScore() - this.getMathScore() : i;
+        //如果数学成绩一样,按照英语成绩排序
+        i = i == 0 ? o.getEnglishScore() - this.getEnglishScore() : i;
+        //如果英语成绩一样,按照年龄排序
+        i = i == 0 ? o.getAge() - this.getAge() : i;
+        //如果年龄一样,按照名字字幕顺序排序
+        i = i == 0 ? o.getName().compareTo(this.getName()) : i;
+
+        return (int) i;
+
+    }
+}
+```
+Test类
+```java
+package TreeSet.Test2;
+
+import java.util.TreeSet;
+
+public class TreeSetTest1 {
+    public static void main(String[] args) {
+        Student s1 = new Student("zhangsan", 12, 80, 90, 100);
+        Student s2 = new Student("lisi", 28, 20, 90, 99);
+        Student s3 = new Student("wangwu", 17, 12, 10, 10);
+        Student s4 = new Student("zhaosi", 13, 12, 10, 10);
+        Student s5 = new Student("xiaoliu", 12, 82, 70, 60);
+        Student s6 = new Student("xiaoliu", 12, 82, 70, 60);
+        TreeSet<Student> ts = new TreeSet<>();
+        ts.add(s1);
+        ts.add(s2);
+        ts.add(s3);
+        ts.add(s4);
+        ts.add(s5);
+        ts.add(s6);
+        ts.forEach(x -> System.out.println(x));
+    }
+}
+```
+
+## P12 集合进阶-利用TreeMap进行统计每个字符出现的个数
+注意:计数器思想
+代码:
+```java
+package Java下半章.TreeMap;
+
+import java.util.Comparator;
+import java.util.TreeMap;
+import java.util.function.BiConsumer;
+
+public class TreeMapT3 {
+    public static void main(String[] args) {
+        String str = "aabbccddesioadfhjasldfhasfeuahsfkjdfhasiufhesae";
+        //统计一个字符出现的次数
+        //新的统计思想
+        //如果不需要排序:HashMap
+        //需要排序:TreeMap
+        //计数器思想
+        TreeMap<Character, Integer> treeMap = new TreeMap<>(new Comparator<Character>() {
+            @Override
+            public int compare(Character o1, Character o2) {
+                return o2 - o1;
+            }
+        }
+        );
+        for (int j = 0; j < str.length(); j++) {
+            char key = str.charAt(j);
+            if (treeMap.containsKey(key)) {
+                int value = treeMap.get(key);
+                value++;
+                treeMap.put(key, value);
+            } else {
+                treeMap.put(key, 1);
+            }
+        }
+        treeMap.forEach((x, y) -> System.out.print(x + "(" + y + ")" + " \n"));
+        treeMap.forEach(new BiConsumer<Character, Integer>() {
+            @Override
+            public void accept(Character character, Integer integer) {
+                System.out.println(character + ":" + integer);
+            }
+        });
+
+    }
+}
+
+```
+
+## P13-P16 HashMap源码讲解笔记
+
+
+
