@@ -3248,7 +3248,6 @@ LinkedList底层源码:
 | 类后面 | 泛型类 |
 | 方法上面 | 泛型方法 |
 | 接口后面 | 泛型接口 |
-| | |
 
 ### 泛型类:
 
@@ -4195,7 +4194,6 @@ public class Student {
     public void setName(String name) {
         this.name = name;
     }
-
     @Override
     public String toString() {
         return "Student [name=" + name + ", age=" + age + "]";
@@ -4490,5 +4488,85 @@ public class TreeMapT3 {
 
 ## P13-P16 HashMap源码讲解笔记
 
+> HashMap啥时候变成红黑树作为底层存储结构
+> 在Java的`HashMap`类中，当以下条件满足时，它将自动转换为使用红黑树（
+Balanced Tree）作为存储结构：
 
+ **负载因子超过 0.75**：当哈希表中的 Entry 数量超过了容器的 3/4 部分时，
+   HashMap 会认为当前的负载因子太高，需要转换到红黑树来维护平衡。
+ **Entry 个数达到阈值**： HashMap 的实现中，有一个名为 `threshold` 的变量
+   ，它决定了哈希表中的 Entry 个数是否需要转换到红黑树。默认情况下，这个阈值是
+   16。
+
+当满足以上条件之一时，HashMap 会自动将其转换为使用红黑树作为存储结构。这意味
+着哈希表中的 Entry 将被重新组织成一个红黑树，以提高查找效率和避免 Hash 冲突
+。
+
+需要注意的是，在实际使用中，HashMap 的负载因子和阈值都可以通过配置来调整，这
+取决于具体的应用场景和性能要求。
+
+具体讲解代码:文件在markdown文件夹下，使用gedit查看内容
+
+
+
+## 集合进阶-19-可变参数
+
+
+可变参数格式:`元素类型...变量名`
+
+代码
+```java
+package 可变参数_Collections_综合练习.可变参数;
+
+public class Test {
+    public static void main(String[] args) {
+        System.out.println(getSum(12, 12, 12, 12, 12, 12, 12, 12, 12));
+
+    }
+    public static int getSum(int...e){
+        int sum=0;
+
+        for (int i : e) {
+            sum+=i;
+        }
+        return sum;
+    }
+}
+
+```
+可变参数细节:
+- 方法形参只能写一个可变参数
+- 如果除了可变参数还有其他元素，可变参数必须要在最后出现
+
+file:///home/hexiaolei/%E5%9B%BE%E7%89%87/%E6%88%AA%E5%9B%BE/%E6%88%AA%E5%9B%BE%202024-11-16%2019-20-46.png
+
+
+## 集合进阶-20-集合工具类Collections
+
+**Collections**
+- Java.util.Collections:集合工具类
+- 作用:Collections不是集合，是工具类
+
+
+Collections常用api
+
+|                                方法名称                                |            说明            |
+|:------------------------------------------------------------------:|:------------------------:|
+| `public static <T> boolean addAll(Collection<T> c, T... elements)` |          批量添加元素          |
+|             `public static void shuffle(List<?> list)`             |      打乱List集合元素的顺序       |
+|            `public static <T> void sort(List<T> list)`             |            排序            |
+|    `public static <T> void sort(List<T> list, Comparator<T> c)`    |       根据指定的规则进行排序        |
+|     `public static <T> int binarySearch(List<T> list, T key)`      |        以二分查找法查找元素        |
+|      `public static <T> void copy(List<T> dest, List<T> src)`      |         拷贝集合中的元素         |
+|         `public static <T> int fill(List<T> list, T obj)`          |       使用指定的元素填充集合        |
+|        `public static <T> void max/min(Collection<T> coll)`        |     根据默认的自然排序获取最大/小值     |
+|     `public static <T> void swap(List<T> list, int i, int j)`      |       交换集合中指定位置的元素       |
+
+
+## 集合进阶-21-综合练习1-随机点名器的两种实现方式
+
+代码:
+1. 
+```java
+```
 
