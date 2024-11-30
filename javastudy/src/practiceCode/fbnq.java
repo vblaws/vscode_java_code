@@ -1,7 +1,5 @@
 package practiceCode;
 
-import java.util.*;
-
 /**
  * MathOperation
  */
@@ -26,7 +24,8 @@ public class fbnq {
         };
         ma.run(12, 12);
         MathOperation ma1 = (a, b) -> System.out.println("result=" + (a + b));
-        ma1.run(12, 022);
+        ma1.run(12, 22);
+
     }
 
     public static int fbnq(int num) {
