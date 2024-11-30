@@ -74,26 +74,26 @@ public class T1 {
                 //创建集合
                 HashMap<String, ArrayList<String>> hashMap = new HashMap<>();
                 ArrayList<String> JiangSu = new ArrayList<>();
-                Collections.addAll(JiangSu,"江阴","苏州","淮安");
+                Collections.addAll(JiangSu, "江阴", "苏州", "淮安");
                 ArrayList<String> GuangZhou = new ArrayList<>();
-                Collections.addAll(GuangZhou,"g1","g2","g3");
+                Collections.addAll(GuangZhou, "g1", "g2", "g3");
                 ArrayList<String> BeiJing = new ArrayList<>();
-                Collections.addAll(BeiJing,"B1","B2","B3");
+                Collections.addAll(BeiJing, "B1", "B2", "B3");
 
                 hashMap.put("苏州省", JiangSu);
-                hashMap.put("广州省",GuangZhou);
-                hashMap.put("北京省",BeiJing);
+                hashMap.put("广州省", GuangZhou);
+                hashMap.put("北京省", BeiJing);
                 //方式1
-                hashMap.forEach((x,y)-> System.out.println(x+"="+y));
+                hashMap.forEach((x, y) -> System.out.println(x + "=" + y));
                 //方式2
-                Set<Map.Entry<String,ArrayList<String>>> entries =  hashMap.entrySet();
+                Set<Map.Entry<String, ArrayList<String>>> entries = hashMap.entrySet();
                 for (Map.Entry<String, ArrayList<String>> entry : entries) {
                     String key = entry.getKey();
-                    StringJoiner stringJoiner = new StringJoiner(",","","");
+                    StringJoiner stringJoiner = new StringJoiner(",", "", "");
                     for (String s : entry.getValue()) {
                         stringJoiner.add(s);
                     }
-                    System.out.println(key+"="+stringJoiner);
+                    System.out.println(key + "=" + stringJoiner);
                 }
 
 
