@@ -10,6 +10,7 @@
 没事的时候我喜欢打打字,目前最快436(15s)
 ![img_9.png](img_9.png)
 网站是[monkeytype](www.monkeytype.com)
+我个人的[博客网站](aaa.xzin.top)
 使用软件
 
 - IDEA2024 社区版

@@ -4674,8 +4674,286 @@ public class T1 {
 
 
 
+## 斗地主
+
 
 
 ```java
+暂时先停,周末或者有时间来做
 ```
 
+
+
+## 不可变集合详细解释
+
+**创建不可变集合**
+
+>  不可变集合:不可修改的集合
+
+应用场景:
+
+- 如果某个数据不能被修改，把他防御性的拷贝到不可变集合是个很好的方法
+- 当集合对象被不可信对象调用时，不可变形式是安全的
+- 简单理解：不想被别人修改集合里面的内容
+
+在List,Set,Map集合里面都有一个静态的of方法，可以获取一个不可变得集合
+
+| 方法名称                                    | 说明                               |
+| ------------------------------------------- | ---------------------------------- |
+| `static <E> List<E> of(E... elements)`      | 创建一个具有指定元素的List集合对象 |
+| `static <E> Set<E> of(E... elements)`       | 创建一个具有指定元素的Set集合对象  |
+| `static <K, V> Map<K, V> of(K... elements)` | 创建一个具有指定元素的Map集合对象  |
+
+这个集合不可以添加，删除，修改
+
+ 代码
+
+```java
+package ImmutableDemo;
+/**
+ * Immutable不可变的
+ */
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+public class test {
+    public static void main(String[] args) {
+        //一旦创建完毕，只能查询，不能修改或者删除JDK9才支持
+        List<Integer> list = List.of(1,2,3,4,5,6,6);
+        list.forEach(System.out::println);
+        //当我们要获取一个不可变的Set集合时，里面的参数要保证唯一性
+//        Set<String> set = Set.of("a","b","v","b");
+//        for (String s : set) {
+//            System.out.println(s);
+//        }
+        //创建Map的不可变集合
+//        Map<String,Integer> = Map.of(...);
+        //最多20个参数，10个键值对
+        //键不可以重复
+
+
+
+        //如果要传入大于10个键值对对象，可以调用Map.ofEntries方法,可以传入很多entries对象
+        HashMap<String,String> map = new HashMap<>();
+        map.put("猴头", "孙悟空");
+        map.put("老猪", "猪八戒");
+        map.put("沙师弟", "沙悟净");
+        //接收到所有的键值对对象(Entry对象)
+        Set<Map.Entry<String, String>> entries = map.entrySet();
+        //把entries变成一个数组传入Map.ofEntries
+        //toArray方法底层会比较集合的长度和传入的数组长度
+        //若集合长度大于数组长度，将会根据实际数据的个数创建新的数组
+        //若集合长度小于数组长度，则会直接添加进去
+        Map.Entry[] array = entries.toArray(new Map.Entry[10]);
+        //不可变集合Map1
+//        Map map1 = Map.ofEntries(array);
+//        一行解决的方式
+        //Map.ofEntries参数为Entries<K,V> entries,所以传入一个数组也是可以的
+        Map<Object, Object> objectObjectMap = Map.ofEntries(map.entrySet().toArray(new Map.Entry[0]));
+        objectObjectMap.forEach((x,y)-> System.out.println(x+"="+y));
+        //还有一个更加简洁的方式,如果本身为不可变集合则直接返回，如果不是则会返回不可变集合
+        //since JDK10 
+        Map<String, String> stringStringMap = Map.copyOf(map);
+        stringStringMap.put("a","a");
+//      Exception in thread "main" java.lang.UnsupportedOperationException
+
+    }
+}
+
+```
+
+
+
+
+
+**总结**
+
+![image-20241205192149135](/home/hexiaolei/snap/typora/90/.config/Typora/typora-user-images/image-20241205192149135.png)
+
+
+
+## Stream流
+
+### Stream流-1
+
+初爽:
+
+- 创建一个集合，存储多个字符串元素
+
+<img src="/home/hexiaolei/snap/typora/90/.config/Typora/typora-user-images/image-20241207143517428.png" alt="image-20241207143517428" style="zoom:33%;" />
+
+```java
+package Stream流;
+
+import java.util.ArrayList;
+
+public class Test {
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("张无忌");
+        list.add("宋小宝");
+        list.add("王雷");
+        list.add("张强");
+        list.add("张三丰");
+        //新的集合
+        ArrayList<String> list2 = new ArrayList<>();
+        //原来的方法
+        //以张开头的人添加到新数组中
+        for (String name : list) {
+            if (name.startsWith("张")){
+                list2.add(name);
+            }
+        }
+        System.out.println(list2);
+        //将以张开头且长度大于2的添加到新数组中
+        ArrayList<String> list3 = new ArrayList<>();
+        for (String name : list2) {
+            if (name.length() >=3){
+                list3.add(name);
+            }
+        }
+        System.out.println(list3);
+
+
+        //Stream效果
+        list.stream().filter(name-> name.startsWith("张")).filter(name->name.length()==3).forEach(System.out::println);
+
+    }
+}
+
+```
+
+
+
+### Stream流-2
+
+> Stream的思想和获取Stream流
+
+Stream流一般结合了Lambda表达式，简化集合数组的操作
+
+使用步骤:
+
+1. 先得到一条Stream流,并把数据放上去
+2. 利用Stream流中的API进行各种操作
+   - 先中间方法:方法调用完毕后还可以调用其他方法
+     - 过滤，转换
+   - 后终结方法:最后一步，调用完毕后，不能调用其他的方法
+     - 统计，打印
+
+| 获取方式     | 方法名                                          | 说明                     |
+| ------------ | ----------------------------------------------- | ------------------------ |
+| 单列集合     | `default Stream<E> stream()`                    | Collection中的默认方法   |
+| 双列集合     | 无                                              | 无法直接使用stream流     |
+| 数组         | `public static <T> Stream<T> stream(T[] array)` | Arrays工具类中的静态方法 |
+| 一堆零散数据 | `public static<T> Stream<T> of(T... values)`    | Stream接口中的静态方法   |
+
+代码
+
+```java
+package Stream流;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Stream;
+
+public class StreamDemo1 {
+    public static void main(String[] args) {
+        /*
+        | 获取方式     | 方法名                                          | 说明                     |
+        | ------------ | ----------------------------------------------- | ------------------------ |
+        | 单列集合     | `default Stream<E> stream()`                    | Collection中的默认方法   |
+        | 双列集合     | 无                                              | 无法直接使用stream流     |
+        | 数组         | `public static <T> Stream<T> stream(T[] array)` | Arrays工具类中的静态方法 |
+        | 一堆零散数据 | `public static<T> Stream<T> of(T... values)`    | Stream接口中的静态方法   |
+         */
+
+        ArrayList<String> list = new ArrayList<>();
+        Collections.addAll(list,"a","b","c","d","e","f");
+        //获取一条Stream流,并把数据放在流水线上
+        Stream<String> stream = list.stream();
+        //使用终结方法打印
+         stream.forEach(s -> System.out.println(s));
+
+    }
+}
+```
+
+双列集合
+
+```java
+package Stream流;
+
+import java.util.HashMap;
+
+public class StreamDemo2 {
+    public static void main(String[] args) {
+//         | 双列集合     | 无                                              | 无法直接使用stream流     |
+
+        HashMap<String, Integer> hm = new HashMap<>();
+        hm.put("a", 1);
+        hm.put("b", 2);
+        hm.put("c", 3);
+        hm.put("d", 4);
+        hm.put("e", 5);
+        hm.keySet().stream().forEach(x-> System.out.println(x+hm.get(x)));
+        hm.entrySet().stream().forEach(x-> System.out.println("key="+x.getKey()+"\tValue="+x.getValue()));
+
+    }
+}
+```
+
+数组
+
+```java
+package Stream流;
+
+import java.util.Arrays;
+
+public class StreamDemo3 {
+    public static void main(String[] args) {
+//        | 数组         | `public static <T> Stream<T> stream(T[] array)` | Arrays工具类中的静态方法 |
+        int[] arr = new int[]{1,2,3,4,5,6,6,7,8,8,9,9,23,2,3,4,34,34,34,34,};
+        Arrays.stream(arr).forEach(x-> System.out.println(x));
+    }
+}
+```
+
+零碎数据
+
+```java
+package Stream流;
+
+import java.util.stream.Stream;
+
+public class StreamDemo4 {
+    public static void main(String[] args) {
+//               | 一堆零散数据 | `public static<T> Stream<T> of(T... values)`    | Stream接口中的静态方法   |
+        //Stream接口中静态方法of细节 ：
+        //方法的参数是可变参数，也可以传递数组
+        //但必须是引用数据类型的否则就会出现以下情况,因为如果传递基本数据类型的话，会把这个数组当成一个元素，放到Stream流中
+        //[I@f6f4d33
+        int[] arr = new int[]{123,123,123};
+        Stream.of(arr).forEach(x-> System.out.println(x));
+        Stream.of(1,2,3,4,5,6).forEach(x-> System.out.println(x));
+    }
+}
+
+```
+
+
+
+### Stream中间方法
+
+| 名称                                               | 说明                                 |
+| -------------------------------------------------- | ------------------------------------ |
+| `Stream<T> filter(Predicate<? super T> predicate)` | 过滤                                 |
+| `Stream<T> limit(long maxSize)`                    | 获取前几个元素                       |
+| `Stream<T> skip(long n)`                           | 跳过前几个元素                       |
+| `Stream<T> distinct()`                             | 元素去重，依赖(hashCode和equals方法) |
+| `static <T> Stream<T> concat(Stream a, Stream b)`  | 合并a和b两个流为一个流               |
+| `Stream<R> map(Function<T, R> mapper)`             | 转换流中的数据类型                   |
+
+![image-20241207183933312](/home/hexiaolei/snap/typora/90/.config/Typora/typora-user-images/image-20241207183933312.png)

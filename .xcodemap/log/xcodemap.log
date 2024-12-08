@@ -16820,7 +16820,7 @@ java.lang.IllegalArgumentException: Unsupported class file major version 65
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at java.instrument/sun.instrument.InstrumentationImpl.loadClassAndStartAgent(InstrumentationImpl.java:560)
 	at java.instrument/sun.instrument.InstrumentationImpl.loadClassAndCallPremain(InstrumentationImpl.java:572)
-2024-11-21 18:42:51 ERROR main - Get class metadata failed, class:class java.util.jar.Attributes$Name 
+2024-11-21 18:42:51 ERROR main - Get class metadata failed, class:class java.util.jar.Attributes$Stream流.myName
 java.lang.IllegalArgumentException: Unsupported class file major version 65
 	at xcodemap.shaded.org.a.a.e.<init>(SourceFile:199)
 	at xcodemap.shaded.org.a.a.e.<init>(SourceFile:180)
