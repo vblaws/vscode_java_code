@@ -4957,3 +4957,457 @@ public class StreamDemo4 {
 | `Stream<R> map(Function<T, R> mapper)`             | 转换流中的数据类型                   |
 
 ![image-20241207183933312](/home/hexiaolei/snap/typora/90/.config/Typora/typora-user-images/image-20241207183933312.png)
+
+#### `Stream<T> filter(Predicate<? super T> predicate)`  过滤
+
+```java
+package Stream流;
+
+import java.util.ArrayList;
+
+public class Test {
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("张无忌");
+        list.add("宋小宝");
+        list.add("王雷");
+        list.add("张强");
+        list.add("张三丰");
+        //新的集合
+        ArrayList<String> list2 = new ArrayList<>();
+        //原来的方法
+        //以张开头的人添加到新数组中
+        for (String name : list) {
+            if (name.startsWith("张")){
+                list2.add(name);
+            }
+        }
+        System.out.println(list2);
+        //将以张开头且长度大于2的添加到新数组中
+        ArrayList<String> list3 = new ArrayList<>();
+        for (String name : list2) {
+            if (name.length() >=3){
+                list3.add(name);
+            }
+        }
+        System.out.println(list3);
+
+
+        //Stream效果
+        list.stream().filter(name-> name.startsWith("张")).filter(name->name.length()==3).forEach(System.out::println);
+
+
+
+    }
+}
+```
+
+#### `Stream<T> limit(long maxSize)`  获取前几个元素 & `Stream<T> skip(long n)`  跳过前几个元素
+
+```java
+package Stream流;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.function.Predicate;
+
+public class StreamDemo5 {
+    public static void main(String[] args) {
+        /*
+        Stream中间方法:
+       | 名称                                                   | 说明                                       |
+|--------------------------------------------------------|--------------------------------------------|
+| `Stream<T> filter(Predicate<? super T> predicate)`     | 过滤                                       |
+| `Stream<T> limit(long maxSize)`                        | 获取前几个元素                             |
+| `Stream<T> skip(long n)`                               | 跳过前几个元素                             |
+| `Stream<T> distinct()`                                 | 元素去重，依赖(hashCode和equals方法)       |
+| `static <T> Stream<T> concat(Stream a, Stream b)`      | 合并a和b两个流为一个流                     |
+| `Stream<R> map(Function<T, R> mapper)`                 | 转换流中的数据类型                         |
+         */
+
+        ArrayList<String> list = new ArrayList<>();
+        Collections.addAll(list, "张无忌", "周芷若", "赵明", "张强", "张三丰", "张翠花", "张良");
+        //Lambda
+        list.stream().filter(name -> name.startsWith("张")).forEach(x -> System.out.println(x));
+        //匿名函数
+        list.stream().filter(new Predicate<String>() {
+            @Override
+            //s代表每一个元素
+            public boolean test(String s) {
+                //如果为true就保留，如果是false就去掉
+                return s.startsWith("张");
+            }
+        }).forEach(x -> System.out.printf(x + ""));
+        //推荐使用这种方式,简洁易懂
+        list.stream()
+                .filter(name -> name.startsWith("张"))
+                .filter(name -> name.length() == 3)
+                .forEach(System.out::println);
+        System.out.println("===========Limit===========");
+        //limit(获取前几个元素)和skip(跳过前几个元素)
+        list.stream()
+                .limit(2)
+                .forEach(System.out::println);
+        System.out.println("========skip=========");
+        list.stream()
+                .skip(2)
+                .forEach(System.out::println);
+        //Test "张强", "张三丰", "张翠花"
+        System.out.println("==============T1===================");
+        //先获取前六个跳过前三个
+        list.stream()
+                .limit(6)
+                .skip(3)
+                .filter(name->name.startsWith("张"))
+                .forEach(System.out::println);
+        //跳过前三个，再获取三个
+        System.out.println("T2");
+        list.stream()
+                .skip(3)
+                .limit(3)
+                .filter(name->name.startsWith("张"))
+                .forEach(System.out::println);
+    }
+}
+
+```
+
+#### Stream<T> distinct()`  元素去重，依赖(hashCode和equals方法) & static <T> Stream<T> concat(Stream a, Stream b)`  合并a和b两个流为一个流
+
+```java
+package Stream流;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Stream;
+
+public class StreamDemo7 {
+    public static void main(String[] args) {
+
+        /*
+        | `Stream<T> distinct()`                            | 元素去重，依赖(hashCode和equals方法) |
+        | ------------------------------------------------- | ------------------------------------ |
+        | `static <T> Stream<T> concat(Stream a, Stream b)` | 合并a和b两个流为一个流               |
+         */
+
+        ArrayList<String> list1 = new ArrayList<>();
+        Collections.addAll(list1, "张无忌", "张无忌","张无忌", "张强", "张三丰", "张翠山", "张良", "王二麻子", "谢广坤");
+        list1.stream()
+                // Set<T> keys = map.keySet();
+                //                    if (seenNull.get()) {
+                //                        // TODO Implement a more efficient set-union view, rather than copying
+                //                        keys = new HashSet<>(keys);
+                //                        keys.add(null);
+                //                    }
+                //底层使用HashSet去重的
+                .distinct()
+                .forEach(System.out::println);
+        ArrayList<String> list2 = new ArrayList<>();
+        Collections.addAll(list2, "周芷若", "赵敏");
+        //合并流
+        System.out.println("====合并后====");
+        Stream.concat(list1.stream(),list2.stream())
+                .forEach(System.out::println);
+
+    }
+}
+
+```
+
+#### `Stream<R> map(Function<T, R> mapper)`  转换流中的数据类型
+
+```java
+package Stream流;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.function.Function;
+
+public class StreamDemo8 {
+    public static void main(String[] args) {
+//        `Stream<R> map(Function<T, R> mapper)`转换流中的数据类型
+        ArrayList<String> list = new ArrayList<>();
+        Collections.addAll(list,"张三-13","李四-14","刘星-20");
+        //需求：只获取并打印其中的年龄
+        //apply形参s,集合中的每一个数据
+        //返回值：转换之后的数据
+        list.stream()
+                //泛型里面不能写基本数据类型
+                .map(new Function<String, Integer>() {
+            @Override
+            public Integer apply(String s) {
+                return Integer.parseInt(s.substring(3));
+            }
+        })
+                .forEach(x-> System.out.println(x));
+        //匿名内部类形式
+        list.stream()
+                .map(str->Integer.parseInt(str.substring(3)))
+                .forEach(x-> System.out.println(x));
+    }
+}
+
+```
+
+### Stream终结方法
+
+| 名称                          | 说明                       |
+| ----------------------------- | -------------------------- |
+| void forEach(Consumer action) | 遍历                       |
+| long count()                  | 统计                       |
+| toArray()                     | 收集流中的数据，放到数组中 |
+| collect(Collector collector)  | 收集流中的数据，放到集合中 |
+
+#### forEach,count,toArry
+
+```java
+package Stream流.finalMethod;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.function.IntFunction;
+
+public class StreamDemo1 {
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+        Collections.addAll(list, "张无忌", "张无忌","张无忌", "张强", "张三丰", "张翠山", "张良", "王二麻子", "谢广坤");
+        list.stream().forEach(x-> System.out.println(x));
+        System.out.println(list.stream().count());
+
+        //InFunction泛型：具体类型的数组
+        //apply，流中数据的个数，需要跟数组长度一直
+        //方法体：创建数组
+        //toArray的作用：创建一个指定类型的数组
+        String[] array = list.stream().toArray(new IntFunction<String[]>() {
+            @Override
+            public String[] apply(int value) {
+                return new String[value];
+            }
+        });
+        for (String s : array) {
+            System.out.println(s);
+        }
+        //Lambda
+        String[] array1 = list.stream()
+                .toArray(value -> new String[value]);
+        for (String s : array1) {
+            System.out.println(s);
+        }
+    }
+}
+```
+
+### collect超详解
+
+collect(Collector collector)  收集流中的数据，放到集合中 
+
+```java
+package Stream流.finalMethod;
+
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class StreamDemo2 {
+    public static void main(String[] args) {
+        //collect(Collector collector)收集流中的数据，放到集合中
+        ArrayList<String> list = new ArrayList<>();
+        Collections.addAll(list, "张无忌-男-12", "张无忌-男-12", "张强-男-11", "张三丰-男-20", "张翠山-女-33", "张良-男-22", "王二麻子-女-20", "谢广坤-男-90");
+
+        //收到List集合里面
+        //把所有男性收集到List
+        List<String> list1 = list.stream()
+                .filter(name -> name.split("-")[1].equals("男"))
+                .collect(Collectors.toList());
+//                .forEach(x-> System.out.println(x));
+        System.out.println(list1);
+
+        //收集到Set集合里面
+        Set<String> collect = list.stream()
+                .filter(name -> "男".equals(name.split("-")[1]))
+                .collect(Collectors.toSet());
+        System.out.println(collect);
+
+
+        //收到map集合里面
+        //所有男性收集起来
+        //键:姓名,值:年龄
+        Map<String, Integer> collect1 = list.stream()
+                .filter(name -> "男".equals(name.split("-")[1]))
+                .distinct()
+                /*
+                toMap详细解释:
+                参数一:键的生成规则
+                参数二:值的生成规则
+
+                参数一
+                    Function泛型1:表示流中每一个数据的类型
+                            泛型2:表示map集合中键的类型
+                    方法apply形参:一次表示流中的每一个数据
+                            方法体:生成键的代码
+                            返回值:已经生成的键
+                 参数二
+                    Function泛型1:表示流中每一个数据的类型
+                            泛型2:表示map集合中值的类型
+                     方法apply形参:一次表示流中的每一个数据
+                            方法体:生成值的代码
+                            返回值:已经生成的值
+
+                   !!!注意点:如果要添加到Map集合当中,必须要保持键是唯一的
+                 */
+                .collect(Collectors.toMap(new Function<String, String>() {
+                    @Override
+                    //key
+                    public String apply(String s) {
+                        return s.split("-")[0];
+                    }
+                    //value
+                }, new Function<String, Integer>() {
+                    @Override
+                    public Integer apply(String s) {
+                        return Integer.parseInt(s.split("-")[2]);
+                    }
+                }));
+
+        System.out.println(collect1);
+        //Lambda形式
+        Map<String, Integer> collect2 = list.stream()
+                .filter(name -> "男".equals(name.split("-")[1]))
+                .distinct()
+                .collect(Collectors.toMap(
+                        key -> key.split("-")[0],
+                        value -> Integer.parseInt(value.split("-")[2])));
+        System.out.println(collect2);
+    }
+}
+```
+总结:
+
+![image-20241211202959993](/home/hexiaolei/IdeaProjects/vscode_java_code/image-20241211202959993.png)
+
+
+
+### 综合练习6-8
+
+T3要求
+
+![image-20241211212119957](/home/hexiaolei/IdeaProjects/vscode_java_code/image-20241211212119957.png)
+
+代码:
+
+```java
+package Stream流.StreamTest;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class T1 {
+    public static void main(String[] args) {
+        //存储1-10,过滤奇数，只保留偶数
+        System.out.println("Test1");
+        ArrayList<Integer> t1 = new ArrayList<>();
+        Collections.addAll(t1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        Set<Integer> collect = t1.stream()
+                .filter(n -> n % 2 == 0)
+                .collect(Collectors.toSet());
+        System.out.println(collect);
+        //保留年龄大于24，并将结果保存在map集合中
+        System.out.println("Test2");
+        ArrayList<String> t2 = new ArrayList<>();
+        Collections.addAll(t2, "zhangsan,23", "lisi,24", "wangwu,25");
+        Map<String, Integer> collect1 = t2.stream()
+                .filter(c -> Integer.parseInt(c.split(",")[1]) >= 24)
+                .collect(Collectors.toMap(
+                        key -> key.split(",")[0],
+                        value -> Integer.parseInt(value.split(",")[1])
+                ));
+        System.out.println(collect1);
+        //自定义集合Actor,
+        //属性name,age
+        //具体见typora
+        System.out.println("Test3");
+//        ArrayList<Actor> t3_B = new ArrayList<>();
+//        Collections.addAll(t3_B,
+//                new Actor("张三",23),
+//                new Actor("李四",24),
+//                new Actor("嘻哈",11),
+//                new Actor("黎明",60),
+//                new Actor("徐有",22),
+//                new Actor("你哈",2));
+//        ArrayList<Actor> t3_G = new ArrayList<>();
+//        Collections.addAll(t3_G,
+//                new Actor("小梅",23),
+//                new Actor("小妹",24),
+//                new Actor("小兰花",11),
+//                new Actor("小美",60),
+//                new Actor("徐徐",22),
+//                new Actor("阿阿",2));
+        ArrayList<String> t3_B = new ArrayList<>();
+        Collections.addAll(t3_B, "张三,23",
+                "李四a,24",
+                "嘻哈b,11",
+                "黎明c,60",
+                "徐有,22",
+                "你哈,2"
+        );
+        ArrayList<String> t3_G = new ArrayList<>();
+        Collections.addAll(t3_G,
+                "杨梅,23",
+                "杨妹,24",
+                "小兰花,11",
+                "杨美,60",
+                "徐徐,22",
+                "阿阿,2"
+        );
+        //1
+        Stream<String> streamBoy = t3_B.stream()
+                .limit(2)
+                .filter(str -> str.split(",")[0].length() == 3);
+        //2
+        Stream<String> streamGirl = t3_G.stream()
+                .skip(1)
+                .filter(str -> str.split(",")[0].startsWith("杨"));
+        //3
+        Stream<String> concat = Stream.concat(streamBoy, streamGirl);
+        //4
+        Stream<Actor> actorStream = concat.map(actor -> new Actor(actor.split(",")[0], Integer.parseInt(actor.split(",")[1])));
+        //5
+        List<Actor> list = actorStream.toList();
+        System.out.println(list);
+//        一次性写完
+        List<Actor> list1 = Stream.concat(t3_B.stream()
+                        .limit(2)
+                        .filter(str -> str.split(",")[0].length() == 3)
+                , t3_G.stream()
+                        .skip(1)
+                        .filter(name -> name.split(",")[0].startsWith("杨"))
+        ).map(actor -> new Actor(actor.split(",")[0], Integer.parseInt(actor.split(",")[1]))).toList();
+        System.out.println(list1);        System.out.println("Test3");
+//        ArrayList<Actor> t3_B = new ArrayList<>();
+//        Collections.addAll(t3_B,
+//                new Actor("张三",23),
+//                new Actor("李四",24),
+//                new Actor("嘻哈",11),
+//                new Actor("黎明",60),
+//                new Actor("徐有",22),
+//                new Actor("你哈",2));
+//        ArrayList<Actor> t3_G = new ArrayList<>();
+//        Collections.addAll(t3_G,
+//                new Actor("小梅",23),
+//                new Actor("小妹",24),
+//                new Actor("小兰花",11),
+//                new Actor("小美",60),
+//                new Actor("徐徐",22),
+//                new Actor("阿阿",2));
+    }
+}
+
+```
+
+
+
+## 方法引用
+
+### 方法引用概述
+

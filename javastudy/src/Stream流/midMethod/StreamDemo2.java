@@ -1,4 +1,4 @@
-package Stream流;
+package Stream流.midMethod;
 
 import java.util.HashMap;
 
