@@ -5327,22 +5327,7 @@ public class T1 {
         //属性name,age
         //具体见typora
         System.out.println("Test3");
-//        ArrayList<Actor> t3_B = new ArrayList<>();
-//        Collections.addAll(t3_B,
-//                new Actor("张三",23),
-//                new Actor("李四",24),
-//                new Actor("嘻哈",11),
-//                new Actor("黎明",60),
-//                new Actor("徐有",22),
-//                new Actor("你哈",2));
-//        ArrayList<Actor> t3_G = new ArrayList<>();
-//        Collections.addAll(t3_G,
-//                new Actor("小梅",23),
-//                new Actor("小妹",24),
-//                new Actor("小兰花",11),
-//                new Actor("小美",60),
-//                new Actor("徐徐",22),
-//                new Actor("阿阿",2));
+
         ArrayList<String> t3_B = new ArrayList<>();
         Collections.addAll(t3_B, "张三,23",
                 "李四a,24",
@@ -5383,23 +5368,7 @@ public class T1 {
                         .skip(1)
                         .filter(name -> name.split(",")[0].startsWith("杨"))
         ).map(actor -> new Actor(actor.split(",")[0], Integer.parseInt(actor.split(",")[1]))).toList();
-        System.out.println(list1);        System.out.println("Test3");
-//        ArrayList<Actor> t3_B = new ArrayList<>();
-//        Collections.addAll(t3_B,
-//                new Actor("张三",23),
-//                new Actor("李四",24),
-//                new Actor("嘻哈",11),
-//                new Actor("黎明",60),
-//                new Actor("徐有",22),
-//                new Actor("你哈",2));
-//        ArrayList<Actor> t3_G = new ArrayList<>();
-//        Collections.addAll(t3_G,
-//                new Actor("小梅",23),
-//                new Actor("小妹",24),
-//                new Actor("小兰花",11),
-//                new Actor("小美",60),
-//                new Actor("徐徐",22),
-//                new Actor("阿阿",2));
+        System.out.println(list1); 
     }
 }
 
@@ -5410,4 +5379,219 @@ public class T1 {
 ## 方法引用
 
 ### 方法引用概述
+
+> 把已经有的方法拿过来用,当作函数式接口的方法体
+
+![image-20241211212628299](/home/hexiaolei/IdeaProjects/vscode_java_code/image-20241211212628299.png)
+
+代码:
+
+```java
+package MethodReference;
+
+import java.util.Arrays;
+
+public class Demo1 {
+    public static void main(String[] args) {
+        //创建一个数据倒序输出
+        Integer[] integers = new Integer[]{1, 2, 3, 4, 5};
+
+        //匿名内部类
+//        Arrays.sort(integers, new Comparator<Integer>() {
+//            @Override
+//            public int compare(Integer o1, Integer o2) {
+//                return o2 - o1;
+//            }
+//        });
+//        System.out.println(Arrays.toString(integers));
+//        //Lambda
+//        Arrays.sort(integers, (Integer o1, Integer o2) -> {
+//            return o2 - o1;
+//        });
+//        //Lambda简化
+//        Arrays.sort(integers, ((o1, o2) -> o2 - o1));
+
+        //方法引用
+        //1调用处必须是函数式接口
+        //2被引用的方法需要存在
+        //3被引用方法的形参和返回值需要和抽象方法的形参和返回值保持一致
+        //4被引用方法的功能需要满足当前的需求
+        //引用了Demo1里面的subtraction方法
+        //把这个方法作为抽象方法的方法体
+        Arrays.sort(integers,Demo1::subtraction);
+        System.out.println(Arrays.toString(integers));
+
+    }
+    //可以是Java写好的,也可以是第三方工具类
+    public static int subtraction(int n1,int n2){
+        return n2-n1;
+    }
+}
+```
+
+总结:
+
+![image-20241211214008409](/home/hexiaolei/IdeaProjects/vscode_java_code/image-20241211214008409.png)
+
+### 方法引用的分类
+
+#### 引用静态方法
+
+- 格式:类名::方法名
+- 例子:Integer::parseInt
+- 练习:将"1","2","3","4","5"变成数字
+
+代码:
+
+```java
+package MethodReference;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.function.Function;
+
+public class Demo2 {
+    public static void main(String[] args) {
+        /*
+        方法引用:(静态方法)
+        格式:类::方法名
+        集合中有以下类型数据,"1","2","3","4","5"
+        变成int类型输出
+         */
+        //添加元素
+        ArrayList<String> list = new ArrayList<>();
+        Collections.addAll(list,"1","2","3","4","5");
+        //都变成int类型,匿名内部类形式
+        list.stream().map(new Function<String, Integer>() {
+            @Override
+            public Integer apply(String s) {
+                return Integer.parseInt(s);
+            }
+        }).forEach(System.out::println);
+        //方法引用方式
+        list.stream()
+                .map(Integer::parseInt)
+                .forEach(System.out::println);
+    }
+
+}
+```
+
+
+
+#### 引用成员方法
+
+> 格式:对象::成员方法
+
+代码
+
+```java
+
+```
+
+
+
+##### 其他类成员方法
+
+> 格式:其他类对象::方法名
+
+代码 
+
+```java
+package MethodReference;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Demo3 {
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+        Collections.addAll(list, "张无忌", "周芷若", "赵敏", "张强", "张三丰");
+//要求三个字以张开头
+        //Lambda
+        list.stream()
+                .filter(name -> name.startsWith("张"))
+                .filter(name -> name.length() == 3)
+                .forEach(System.out::println);
+        list.stream()
+                .filter(new filterName()::filtername) 
+                .forEach(System.out::println);
+
+    }
+
+}
+
+```
+
+filterName类代码
+
+```java
+package MethodReference;
+
+public class filterName {
+    public boolean filtername(String s){
+        return s.startsWith("张") && s.length() == 3;
+
+    }
+}
+```
+
+
+
+##### 本类成员方法
+
+> 格式:this::方法名
+
+**因为static里面没有this**
+
+**所以如果要调用本类成员方法,需要创建对象以后再引用**
+
+代码
+
+```java
+package MethodReference;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Demo3 {
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+        Collections.addAll(list, "张无忌", "周芷若", "赵敏", "张强", "张三丰");
+//要求三个字以张开头
+        //Lambda
+        list.stream()
+                .filter(name -> name.startsWith("张"))
+                .filter(name -> name.length() == 3)
+                .forEach(System.out::println);
+        list.stream()
+            	.filter(new Demo3::filterName);
+        		.forEach(System.out::println);
+                
+
+    }
+	public boolean filterName(String s){
+        return s.startWith("张") && s.length() == 3;
+    }
+}
+
+```
+
+**this::方法名,引用处不能为静态方法**
+
+
+
+
+
+##### 父类成员方法
+
+> 格式:super::方法名
+
+#### 引用构造方法
+
+#### Other
+
+##### 使用类名调用成员方法
+
+##### 引用数组构造方法
 
